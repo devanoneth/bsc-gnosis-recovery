@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 1000px;
+}
+
+.tabs {
+  margin: 2rem;
+}
+
+.tabs a {
+  margin: 0 2rem;
+}
+
+.code {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.code pre {
+  width: 50%;
+  word-wrap: break-word;
+  overflow: scroll;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.code a {
+  padding-top:1rem;
+  margin-left: 0.5rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.small {
+  font-size: small;
+}
+
+footer {
+  margin: 2rem auto;
+}
+
+button {
+  margin: 1rem;
+  padding: 0.5rem;
+}
