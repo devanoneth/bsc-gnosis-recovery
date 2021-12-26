@@ -4,7 +4,7 @@ import { BSC, DAppProvider, Config } from '@usedapp/core';
 
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 const config: Config = {
   readOnlyChainId: BSC.chainId,
@@ -16,9 +16,9 @@ const config: Config = {
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider config={config}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </DAppProvider>
   </React.StrictMode>,
   document.getElementById('root')

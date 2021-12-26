@@ -19,7 +19,7 @@ export default function App() {
      <Dapp />
 
       <footer>
-        --
+        ---
         <br /><br />
         <p className="bold">Why does this website look like shit? How can I trust it?</p>
         <br />

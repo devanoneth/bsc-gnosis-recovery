@@ -62,7 +62,6 @@ export default function Dapp() {
     nonceTarget.validity.valid && setNonceInput(nonceTarget.value);
   };
 
-
   return (
     <Fragment>
       <button type="button" disabled={!!account} onClick={() => activateBrowserWallet()}>
@@ -103,41 +102,47 @@ export default function Dapp() {
                     value={destinationAddressInput}
                   />
 
-                  <h3>Gnosis Safe Nonce</h3>
-                  <input type="text" pattern="[0-9]*" onChange={(e) => onNonceInput(e.target)} value={nonceInput} />
-                  <p className="small">Prefilled based on blockchain, but you can manually change this if needed.</p>
+                  {destinationAddress && (
+                    <>
+                      <h3>Gnosis Safe Nonce</h3>
+                      <input type="text" pattern="[0-9]*" onChange={(e) => onNonceInput(e.target)} value={nonceInput} />
+                      <p className="small">
+                        Prefilled based on blockchain, but you can manually change this if needed.
+                      </p>
 
-                  <div className="tabs">
-                    <Link to="/sign">Sign</Link>
-                    <Link to="/send">Send</Link>
-                  </div>
+                      <div className="tabs">
+                        <Link to="/sign">Sign</Link>
+                        <Link to="/send">Send</Link>
+                      </div>
 
-                  <Routes>
-                    <Route
-                      path="/sign"
-                      element={
-                        <Sign
-                          multisigAddress={multisigAddress}
-                          tokenAddress={tokenAddress}
-                          destinationAddress={destinationAddress}
-                          tokenBalance={tokenBalance}
-                          nonce={parseInt(nonceInput)}
+                      <Routes>
+                        <Route
+                          path="/sign"
+                          element={
+                            <Sign
+                              multisigAddress={multisigAddress}
+                              tokenAddress={tokenAddress}
+                              destinationAddress={destinationAddress}
+                              tokenBalance={tokenBalance}
+                              nonce={parseInt(nonceInput)}
+                            />
+                          }
                         />
-                      }
-                    />
-                    <Route
-                      path="/send"
-                      element={
-                        <Send
-                          multisigAddress={multisigAddress}
-                          tokenAddress={tokenAddress}
-                          destinationAddress={destinationAddress}
-                          tokenBalance={tokenBalance}
-                          nonce={parseInt(nonceInput)}
+                        <Route
+                          path="/send"
+                          element={
+                            <Send
+                              multisigAddress={multisigAddress}
+                              tokenAddress={tokenAddress}
+                              destinationAddress={destinationAddress}
+                              tokenBalance={tokenBalance}
+                              nonce={parseInt(nonceInput)}
+                            />
+                          }
                         />
-                      }
-                    />
-                  </Routes>
+                      </Routes>
+                    </>
+                  )}
                 </>
               )}
 

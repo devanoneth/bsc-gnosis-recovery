@@ -32,7 +32,7 @@ export default function Sign({ multisigAddress, tokenAddress, destinationAddress
               type="button"
               onClick={async () => {
                 setLink(
-                  `${window.location.origin}/sign?multisigAddress=${multisigAddress}&tokenAddress=${tokenAddress}&destinationAddress=${destinationAddress}&nonce=${nonce}`
+                  `${window.location.origin}${process.env.PUBLIC_URL}#/sign?multisigAddress=${multisigAddress}&tokenAddress=${tokenAddress}&destinationAddress=${destinationAddress}&nonce=${nonce}`
                 );
               }}
             >
@@ -44,14 +44,13 @@ export default function Sign({ multisigAddress, tokenAddress, destinationAddress
             <div>
               <div className="code" id="linkAnchor">
                 <pre>{link}</pre>
-                <a
-                  href="#linkAnchor"
+                <button
                   onClick={() => {
                     navigator.clipboard.writeText(link);
                   }}
                 >
                   Copy
-                </a>
+                </button>
               </div>
               <p className="small">Send this to any other signatories on the multisig and ask them to Sign.</p>
             </div>
@@ -83,14 +82,13 @@ export default function Sign({ multisigAddress, tokenAddress, destinationAddress
             <div>
               <div className="code" id="signatureAnchor">
                 <pre>{signature}</pre>
-                <a
-                  href="#signatureAnchor"
+                <button
                   onClick={() => {
                     navigator.clipboard.writeText(signature);
                   }}
                 >
                   Copy
-                </a>
+                </button>
               </div>
               <p className="small">Copy this and use it in the "Send" tab.</p>
             </div>
