@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/binance-gnosis-recover/static/css/main.883b5b83.css",
-    "main.js": "/binance-gnosis-recover/static/js/main.1b81c6f6.js",
-    "index.html": "/binance-gnosis-recover/index.html",
-    "main.883b5b83.css.map": "/binance-gnosis-recover/static/css/main.883b5b83.css.map",
-    "main.1b81c6f6.js.map": "/binance-gnosis-recover/static/js/main.1b81c6f6.js.map"
+    "main.css": "/bsc-gnosis-recovery/static/css/main.883b5b83.css",
+    "main.js": "/bsc-gnosis-recovery/static/js/main.56125311.js",
+    "index.html": "/bsc-gnosis-recovery/index.html",
+    "main.883b5b83.css.map": "/bsc-gnosis-recovery/static/css/main.883b5b83.css.map",
+    "main.56125311.js.map": "/bsc-gnosis-recovery/static/js/main.56125311.js.map"
   },
   "entrypoints": [
     "static/css/main.883b5b83.css",
-    "static/js/main.1b81c6f6.js"
+    "static/js/main.56125311.js"
   ]
 }
