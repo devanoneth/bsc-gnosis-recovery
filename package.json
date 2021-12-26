@@ -1,8 +1,8 @@
 {
-  "name": "bsc-gnosis-safe-recovery",
-  "version": "0.1.0",
+  "name": "bsc-gnosis-multisig-recovery",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "http://devanonon.github.io/binance-gnosis-recover/",
+  "homepage": "http://devanonon.github.io/bsc-gnosis-recovery/",
   "devDependencies": {
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
@@ -29,8 +29,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {

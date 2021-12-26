@@ -32,7 +32,7 @@ export default function Sign({ multisigAddress, tokenAddress, destinationAddress
               type="button"
               onClick={async () => {
                 setLink(
-                  `${window.location.origin}/build?multisigAddress=${multisigAddress}&tokenAddress=${tokenAddress}&destinationAddress=${destinationAddress}&nonce=${nonce}`
+                  `${window.location.origin}/sign?multisigAddress=${multisigAddress}&tokenAddress=${tokenAddress}&destinationAddress=${destinationAddress}&nonce=${nonce}`
                 );
               }}
             >
