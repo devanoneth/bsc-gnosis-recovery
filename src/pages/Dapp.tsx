@@ -31,6 +31,8 @@ export default function Dapp() {
   const [linkButtonText, setLinkButtonText] = useState('Share Recovery Details');
   const [link, setLink] = useState(false);
 
+  const [txHash, setTxHash] = useState('');
+
   const tokenBalance = useTokenBalance(tokenAddress, multisigAddress);
   const tokenInfo = useToken(tokenAddress);
 
@@ -41,7 +43,7 @@ export default function Dapp() {
   }, [tokenBalance]);
 
   useEffect(() => {
-    if(tokenAddress != searchParams.get('tokenAddress')?.toString()) {
+    if (tokenAddress != searchParams.get('tokenAddress')?.toString()) {
       setAmountInput('');
     }
   }, [tokenAddressInput]);
@@ -63,7 +65,7 @@ export default function Dapp() {
   }, [nonceContract]);
 
   useEffect(() => {
-    setSearchParams('', {replace: true});
+    setSearchParams('', { replace: true });
   }, []);
 
   const onAddressInput = (address: string, inputSetter: any, setter: any) => {
@@ -81,6 +83,10 @@ export default function Dapp() {
 
   const onNumberInput = (numberTarget: EventTarget & HTMLInputElement, inputSetter: any) => {
     numberTarget.validity.valid && inputSetter(numberTarget.value);
+  };
+
+  const onSuccess = (transactionHash: string) => {
+    setTxHash(transactionHash);
   };
 
   return (
@@ -129,7 +135,9 @@ export default function Dapp() {
                       {tokenInfo.decimals} decimal places.
                     </p>
 
-                    <h3>Send {amountInput} {tokenInfo?.symbol} to</h3>
+                    <h3>
+                      Send {amountInput} {tokenInfo?.symbol} to
+                    </h3>
                     <input
                       type="text"
                       onChange={(v) =>
@@ -220,6 +228,7 @@ export default function Dapp() {
                                 destinationAddress={destinationAddress}
                                 amount={utils.parseUnits(amountInput, tokenInfo.decimals)}
                                 nonce={parseInt(nonceInput)}
+                                onSuccess={onSuccess}
                               />
                             }
                           />
@@ -229,7 +238,13 @@ export default function Dapp() {
                   </>
                 )}
 
-              {account && library && tokenBalance && tokenBalance.eq('0') && (
+              {account && library && tokenBalance && tokenBalance.eq('0') && txHash && (
+                <p>
+                  Successfully cleared the wallet of all {tokenInfo?.symbol} in this transaction: <a href={`https://bscscan.com/tx/${txHash}`} target="_blank">{txHash}</a>.
+                </p>
+              )}
+
+              {account && library && tokenBalance && tokenBalance.eq('0') && !txHash && (
                 <p className="small">No balance found for {tokenInfo?.name}</p>
               )}
             </>

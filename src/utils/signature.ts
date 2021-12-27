@@ -55,9 +55,7 @@ export async function signTypedData(
     },
   });
 
-  const signature = await provider.send('eth_signTypedData_v4', [from, msgParams]);
-
-  return signature;
+  return await provider.send('eth_signTypedData_v4', [from, msgParams]);
 }
 
 export function recoverTypedData(

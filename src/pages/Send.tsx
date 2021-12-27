@@ -10,14 +10,23 @@ type SendProps = {
   destinationAddress: string;
   amount: BigNumber;
   nonce: number;
+  onSuccess: any;
 };
 
-export default function Send({ multisigAddress, tokenAddress, destinationAddress, amount, nonce }: SendProps) {
+export default function Send({
+  multisigAddress,
+  tokenAddress,
+  destinationAddress,
+  amount,
+  nonce,
+  onSuccess,
+}: SendProps) {
   const [signatureNumbers, setSignatureNumbers] = useState([0]);
   const [signatureInputs, setSignatureInputs] = useState(['']);
   const [addressOutputs, setAddressOuputs] = useState(['']);
   const [combinedSignatures, setCombinedSignatures] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [txHash, setTxHash] = useState('');
 
   const [lastThreshold, setLastThreshold] = useState(0);
 
@@ -93,12 +102,14 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
 
   useEffect(() => {
     console.log(state);
-    if(state.status == 'Exception') {
+    if (state.status == 'Exception') {
       setStatusMessage(state.errorMessage ?? '');
     } else if (state.status == 'Mining') {
-      setStatusMessage(`Mining... Transaction hash: ${state?.transaction?.hash}`);
+      setStatusMessage(`Mining...`);
+      setTxHash(state?.transaction?.hash ?? '');
     } else if (state.status == 'Success') {
-      // TODO: stop the entire page reloading because of the fact that now the multisig has no tokens... (this happens right now)
+      onSuccess(state?.transaction?.hash);
+      setTxHash(state?.transaction?.hash ?? '');
       setStatusMessage(`Success!`);
     }
   }, [state]);
@@ -113,10 +124,14 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
     <div className="main">
       {threshold && (
         <>
-          <p>We detected that this Gnosis Multisig requires {lastThreshold} signatures before a transaction can be sent.</p>
+          <p>
+            We detected that this Gnosis Multisig requires {lastThreshold} signatures before a transaction can be sent.
+          </p>
 
-
-          <p>Note: signatures must be inputted so that the recovered signers are sorted ascending. This will be automated soon.</p>
+          <p>
+            Note: signatures must be inputted so that the recovered signers are sorted ascending. This will be automated
+            soon.
+          </p>
 
           {signatureNumbers.map((signatureNumber) => {
             return (
@@ -127,7 +142,9 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
                   onChange={(e) => onSignatureInput(e.target.value, signatureNumber)}
                   value={signatureInputs[signatureNumber]}
                 />
-                {addressOutputs[signatureNumber] && <p className="small">Signed by {addressOutputs[signatureNumber]}</p>}
+                {addressOutputs[signatureNumber] && (
+                  <p className="small">Signed by {addressOutputs[signatureNumber]}</p>
+                )}
               </div>
             );
           })}
@@ -161,6 +178,13 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
               </button>
 
               {statusMessage && <p className="small">{statusMessage}</p>}
+              {txHash && (
+                <p className="small">
+                  <a href={`https://bscscan.com/tx/${txHash}`} target="_blank">
+                    {txHash}
+                  </a>
+                </p>
+              )}
             </div>
           )}
         </>
