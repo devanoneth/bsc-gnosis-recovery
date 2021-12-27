@@ -114,6 +114,10 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
       {threshold && (
         <>
           <p>We detected that this Gnosis Multisig requires {lastThreshold} signatures before a transaction can be sent.</p>
+
+
+          <p>Note: signatures must be inputted so that the recovered signers are sorted ascending. This will be automated soon.</p>
+
           {signatureNumbers.map((signatureNumber) => {
             return (
               <div key={signatureNumber}>
