@@ -8,11 +8,11 @@ type SendProps = {
   multisigAddress: string;
   tokenAddress: string;
   destinationAddress: string;
-  tokenBalance: BigNumber;
+  amount: BigNumber;
   nonce: number;
 };
 
-export default function Send({ multisigAddress, tokenAddress, destinationAddress, tokenBalance, nonce }: SendProps) {
+export default function Send({ multisigAddress, tokenAddress, destinationAddress, amount, nonce }: SendProps) {
   const [signatureNumbers, setSignatureNumbers] = useState([0]);
   const [signatureInputs, setSignatureInputs] = useState(['']);
   const [addressOutputs, setAddressOuputs] = useState(['']);
@@ -61,7 +61,7 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
   }, [threshold]);
 
   useEffect(() => {
-    const data = buildData(tokenBalance, destinationAddress);
+    const data = buildData(amount, destinationAddress);
     const addressArray = addressOutputs.concat();
 
     signatureInputs.map((signatureInput, i) => {
@@ -83,6 +83,9 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
     const signatureInputsWithoutPrefix = signatureInputs.map((signatureInput) => signatureInput.replace('0x', ''));
     const signatures = signatureInputsWithoutPrefix.join('');
 
+    // TODO: The combined signatures need to be sorted so that the recovered signers are sorted ascending
+    // @see https://github.com/gnosis/safe-contracts/blob/da66b45ec87d2fb6da7dfd837b29eacdb9a604c5/contracts/GnosisSafe.sol#L301
+    // @see https://github.com/gnosis/safe-react/blob/87ea3d70a8f42a9d7f57e4ea2f7975a417f4a884/src/logic/safe/safeTxSigner.ts#L46
     if (signatures.length == 130 * lastThreshold) {
       setCombinedSignatures('0x' + signatures);
     }
@@ -107,9 +110,10 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
   };
 
   return (
-    <div className="App">
+    <div className="main">
       {threshold && (
         <>
+          <p>We detected that this Gnosis Multisig requires {lastThreshold} signatures before a transaction can be sent.</p>
           {signatureNumbers.map((signatureNumber) => {
             return (
               <div key={signatureNumber}>
@@ -129,7 +133,7 @@ export default function Send({ multisigAddress, tokenAddress, destinationAddress
               <button
                 type="button"
                 onClick={async () => {
-                  const data = buildData(tokenBalance, destinationAddress);
+                  const data = buildData(amount, destinationAddress);
 
                   console.log(data);
 

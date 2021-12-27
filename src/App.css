@@ -5,11 +5,30 @@
 }
 
 .tabs {
-  margin: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  overflow: hidden;
 }
 
 .tabs a {
   margin: 0 2rem;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 1rem;
+  border-bottom: 0;
+  text-decoration: none;
+}
+
+.tabs a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
 }
 
 .code {

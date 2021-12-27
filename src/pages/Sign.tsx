@@ -1,5 +1,6 @@
 import { useEthers } from '@usedapp/core';
-import { BigNumber } from 'ethers';
+import { TokenInfo } from '@usedapp/core/dist/esm/src/model/TokenInfo';
+import { BigNumber, utils } from 'ethers';
 import { useEffect, useState } from 'react';
 import { buildData, signTypedData } from '../utils/signature';
 
@@ -7,60 +8,30 @@ type BuildProps = {
   multisigAddress: string;
   tokenAddress: string;
   destinationAddress: string;
-  tokenBalance: BigNumber;
+  amount: BigNumber;
   nonce: number;
+  tokenInfo: TokenInfo;
 };
 
-export default function Sign({ multisigAddress, tokenAddress, destinationAddress, tokenBalance, nonce }: BuildProps) {
+export default function Sign({ multisigAddress, tokenAddress, destinationAddress, amount, tokenInfo, nonce }: BuildProps) {
   const { account, library } = useEthers();
 
-  const [link, setLink] = useState('');
   const [signature, setSignature] = useState('');
 
-
   useEffect(() => {
-    link && setLink('');
     signature && setSignature('');
   }, [multisigAddress, tokenAddress, destinationAddress, nonce]);
 
   return (
-    <div className="App">
+    <div className="main">
       {account && library && (
         <>
+          <p>This will sign a Gnosis Multisig compatible message (based on <a href="https://eips.ethereum.org/EIPS/eip-712" target="_blank">EIP-712</a>) for a transfer of {utils.formatUnits(amount, tokenInfo.decimals)} {tokenInfo.symbol} to {destinationAddress}.</p>
           <div>
             <button
               type="button"
               onClick={async () => {
-                setLink(
-                  `${window.location.origin}${process.env.PUBLIC_URL}#/sign?multisigAddress=${multisigAddress}&tokenAddress=${tokenAddress}&destinationAddress=${destinationAddress}&nonce=${nonce}`
-                );
-              }}
-            >
-              Share
-            </button>
-          </div>
-
-          {link && (
-            <div>
-              <div className="code" id="linkAnchor">
-                <pre>{link}</pre>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(link);
-                  }}
-                >
-                  Copy
-                </button>
-              </div>
-              <p className="small">Send this to any other signatories on the multisig and ask them to Sign.</p>
-            </div>
-          )}
-
-          <div>
-            <button
-              type="button"
-              onClick={async () => {
-                const data = buildData(tokenBalance, destinationAddress);
+                const data = buildData(amount, destinationAddress);
 
                 const localSignature = await signTypedData(
                   account,
