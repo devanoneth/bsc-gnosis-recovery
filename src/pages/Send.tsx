@@ -132,6 +132,9 @@ export default function Send({
             Note: signatures must be inputted so that the recovered signers are sorted ascending. This will be automated
             soon.
           </p>
+          <p>
+            Another note: you should manually set a gas limit of around 500,000 in your wallet. Gnosis Safe TXs require quite a bit, plus your ERC20 transfer on top. This will also be auotmated soon.
+          </p>
 
           {signatureNumbers.map((signatureNumber) => {
             return (
