@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/bsc-gnosis-recovery/static/css/main.30932e58.css",
-    "main.js": "/bsc-gnosis-recovery/static/js/main.0f5bd1e0.js",
+    "main.js": "/bsc-gnosis-recovery/static/js/main.8ea185f8.js",
     "index.html": "/bsc-gnosis-recovery/index.html",
     "main.30932e58.css.map": "/bsc-gnosis-recovery/static/css/main.30932e58.css.map",
-    "main.0f5bd1e0.js.map": "/bsc-gnosis-recovery/static/js/main.0f5bd1e0.js.map"
+    "main.8ea185f8.js.map": "/bsc-gnosis-recovery/static/js/main.8ea185f8.js.map"
   },
   "entrypoints": [
     "static/css/main.30932e58.css",
-    "static/js/main.0f5bd1e0.js"
+    "static/js/main.8ea185f8.js"
   ]
 }
