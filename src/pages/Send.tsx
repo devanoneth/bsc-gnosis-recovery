@@ -79,6 +79,7 @@ export default function Send({
   }, [threshold]);
 
   useEffect(() => {
+    setCombinedSignatures('');
     const data = buildData(amount, destinationAddress);
     const addressArray = addressOutputs.concat();
 
@@ -148,12 +149,12 @@ export default function Send({
 
           <p>
             Note: you should manually set a gas limit of around 500,000 in your wallet. Gnosis Safe TXs require quite a
-            bit. This will also be auotmated soon.
+            bit, plus the ERC20 transfer on-top. This will also be automated soon.
           </p>
 
           {signatureNumbers.map((signatureNumber) => {
             return (
-              <div key={signatureNumber}>
+              <div className="signatureInput" key={signatureNumber}>
                 <h3>Signature {(signatureNumber + 1).toString()}</h3>
                 <input
                   type="text"
