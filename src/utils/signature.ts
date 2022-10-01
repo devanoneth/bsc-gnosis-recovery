@@ -1,5 +1,5 @@
 import { BigNumber, utils } from 'ethers';
-import { Web3Provider } from '@ethersproject/providers';
+import { JsonRpcProvider } from '@ethersproject/providers';
 
 export function buildData(amount: BigNumber, destinationAddress: string): string {
   destinationAddress = destinationAddress.replace('0x', '');
@@ -14,7 +14,7 @@ export async function signTypedData(
   tokenAddress: string,
   data: string,
   nonce: number,
-  provider: Web3Provider
+  provider: JsonRpcProvider
 ): Promise<string> {
   const msgParams = JSON.stringify({
     domain: {
