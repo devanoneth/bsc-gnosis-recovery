@@ -1,7 +1,7 @@
 # BSC Gnosis Multisig Recovery
 
 ## Deployment
-You can try out this tool here: https://devanonon.github.io/bsc-gnosis-recovery/
+You can try out this tool here: https://devanoneth.github.io/bsc-gnosis-recovery/
 
 ## Setup
 `npm install`
